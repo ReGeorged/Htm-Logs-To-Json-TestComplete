@@ -15,7 +15,7 @@
 ![JsonLog](screenshots/TestComplete%20suite%20log%20with%20json%20by%20side%20.png)
 
 
-## To run the script Download ConvertLogsToJson And Run: 
+## To get JSON logs: Download ConvertLogsToJson.ps1 And Run: 
 
 ``` powershell
  .\ConvertLogsToJson.ps1 -f "C:\your\path\to\_TestLog.js" -o "C:\your\path\for\exampleOutput\logs.json"
