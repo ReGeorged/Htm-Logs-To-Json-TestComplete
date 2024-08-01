@@ -1,0 +1,23 @@
+﻿{
+    "TestCase":  "integration",
+    "CallStack":  [
+
+                  ],
+    "ErrorScreenshotPath":  "",
+    "EndTime":  "2/16/2024 8:32:16 AM",
+    "Status":  "Succeeded Test",
+    "StartTime":  "2/16/2024 8:32:16 AM",
+    "Details":  "",
+    "Logs":  [
+                 {
+                     "Status":  "Checkpoint",
+                     "Message":  " aq2",
+                     "Details":  "",
+                     "Time":  "2/16/2024 8:32:16 AM",
+                     "CallStack":  [
+
+                                   ]
+                 }
+             ],
+    "ErrorScreenshot":  false
+}

@@ -1,6 +1,7 @@
 ﻿param (
     [string]$f,
-    [string]$outputFilePath
+    [string]$o,
+    [switch]$d
 )
 
 # Function to parse JavaScript content and extract JSON data
@@ -93,17 +94,29 @@ function Parse-TestCases {
     return $testCases
 }
 
-# Ensure the output directory exists
-$outputDir = [System.IO.Path]::GetDirectoryName($outputFilePath)
-if (-not (Test-Path -Path $outputDir)) {
-    New-Item -ItemType Directory -Path $outputDir | Out-Null
-}
-
 # Main script execution
-$jsContent = Get-Content -Path $f -Raw
-$jsonContent = Parse-JSContent -jsContent $jsContent
-$testCases = Parse-TestCases -jsonContent $jsonContent
-$o = $testCases | ConvertTo-Json -Depth 10
+$testLogFiles = Get-ChildItem -Path $f -Filter _TestLog.js -Recurse
 
-# Save JSON output to file
-$o | Out-File -FilePath $outputFilePath -Encoding UTF8
+foreach ($file in $testLogFiles) {
+    $jsContent = Get-Content -Path $file.FullName -Raw
+    $jsonContent = Parse-JSContent -jsContent $jsContent
+    $testCases = Parse-TestCases -jsonContent $jsonContent
+    $jsonOutput = $testCases | ConvertTo-Json -Depth 10
+
+    # Get the parent directory name to use as the output file name
+    $parentDirName = (Get-Item $file.DirectoryName).Name
+    $outputFilePath = Join-Path -Path $o -ChildPath "$parentDirName.json"
+
+    # Ensure the output directory exists
+    if (-not (Test-Path -Path $o)) {
+        New-Item -ItemType Directory -Path $o | Out-Null
+    }
+
+    # Save JSON output to file
+    $jsonOutput | Out-File -FilePath $outputFilePath -Encoding UTF8
+
+    # Delete the original _TestLog.js file if the d flag is set
+    if ($d) {
+        Remove-Item -Path $file.FullName -Force
+    }
+}

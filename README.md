@@ -18,7 +18,10 @@
 ## To get JSON logs: Download ConvertLogsToJson.ps1 And Run: 
 
 ``` powershell
- .\ConvertLogsToJson.ps1 -f "C:\your\path\to\_TestLog.js" -o "C:\your\path\for\exampleOutput\logs.json"
+ .\ConvertLogsToJson.ps1 -f "C:\your\path\to\log\directory" -o "C:\your\path\for\exampleOutput\"
 ```
-
+## you can run this command with -d flag to delete original log files after converting them to json
+``` powershell
+ .\ConvertLogsToJson.ps1 -f "C:\your\path\to\log\directory\" -o "C:\your\path\for\exampleOutput\ -d"
+```
 # And Thats it !
